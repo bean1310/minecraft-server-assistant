@@ -45,6 +45,14 @@ class ModVersionManager(Singleton):
     __dataFilePath = ""
 
     def __init__(self, dataFilePath):
+        """constructor
+
+        Args:
+            dataFilePath (string): Data file path of the mod version manager
+
+        Raises:
+            DataBaseAccessError: Raised when failed to open database file
+        """
         self.__dataFilePath = dataFilePath
         try:
             if os.path.isfile(self.__dataFilePath) == False:
@@ -71,12 +79,32 @@ class ModVersionManager(Singleton):
         self.__modsList[name] = version
 
     def update(self, name, version):
+        """Update Mod info
+
+        Args:
+            name (string): Mod name
+            version (string): Mod version
+
+        Raises:
+            ModNotFoundError: Raised when mod do not registerd
+        """
         if name not in self.__modsList:
             raise ModNotFoundError(name + "is not found in database")
 
         self.__modsList[name] = version
 
     def delete(self, name):
+        """Delete mod info
+
+        Args:
+            name (string): Mod name
+
+        Raises:
+            ModNotFoundError: Raised when mod do not registerd
+
+        Returns:
+            bool: If successed return True
+        """
         try:
             del self.__modsList[name]
         except KeyError:
@@ -84,6 +112,11 @@ class ModVersionManager(Singleton):
         return True
 
     def flush(self):
+        """Persist mod info
+
+        Raises:
+            DataBaseAccessError: Raised when failed to open database file
+        """
         try:
             with open(file=self.__dataFilePath, mode='w') as dataFile:
                 json.dump(self.__modsList, dataFile)
