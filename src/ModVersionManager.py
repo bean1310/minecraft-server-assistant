@@ -57,7 +57,7 @@ class ModVersionManager(Singleton):
         try:
             if os.path.isfile(self.__dataFilePath) == False:
                 with open(file=self.__dataFilePath, mode='w') as dataFile:
-                    dataFile.write('')
+                    json.dump(self.__modsList, dataFile)
             with open(file=self.__dataFilePath, mode='r') as dataFile:
                 self.__modsList = json.load(dataFile)
         except EnvironmentError:
@@ -92,6 +92,12 @@ class ModVersionManager(Singleton):
             raise ModNotFoundError(name + "is not found in database")
 
         self.__modsList[name] = version
+
+    def getModNameList(self):
+        return self.__modsList.keys()
+
+    def getModVersion(self, name):
+        return self.__modsList[name]
 
     def delete(self, name):
         """Delete mod info
