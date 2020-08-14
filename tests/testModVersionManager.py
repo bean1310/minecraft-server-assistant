@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import unittest
-import shutil
 import os
-from os.path import join, dirname
+import shutil
+import unittest
+from os.path import dirname, join
 
-from src.ModVersionManager \
-    import ModVersionManager, ModNotFoundError, BadMethodCallError
+from src.ModVersionManager import (BadMethodCallError, ModNotFoundError,
+                                   ModVersionManager)
 
 
 class TestModVersionManager(unittest.TestCase):
