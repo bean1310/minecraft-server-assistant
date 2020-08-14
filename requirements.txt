@@ -1,0 +1,2 @@
+discord-webhook==0.8.0
+python-dotenv==0.14.0
