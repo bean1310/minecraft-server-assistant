@@ -65,9 +65,6 @@ class ModVersionManager(Singleton):
         except OSError:
             raise DataBaseAccessError('Failed to open ' + dataFilePath + '\n')
 
-    def ___del__(self):
-        self.flush()
-
     def register(self, name, version):
         """Register Mod info
 
